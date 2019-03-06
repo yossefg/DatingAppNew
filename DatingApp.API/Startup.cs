@@ -41,7 +41,6 @@ namespace DatingApp.API
                     opt.SerializerSettings.ReferenceLoopHandling = 
                         Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
-            services.AddScoped<LogUserActivity>();
             services.AddCors();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper();
@@ -59,6 +58,7 @@ namespace DatingApp.API
                         ValidateAudience = false
                     };
                 });
+            services.AddScoped<LogUserActivity>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,9 +84,9 @@ namespace DatingApp.API
                 });
                 // app.UseHsts();
             }
-
+  Console.WriteLine("seed run");
             // app.UseHttpsRedirection();
-             //seeder.SeedUsers();
+             seeder.SeedUsers();
             app.UseCors(x => x.WithOrigins("http://localhost:4200")
                 .AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             app.UseAuthentication();
